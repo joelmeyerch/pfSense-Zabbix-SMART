@@ -16,8 +16,8 @@ Tested with pfSense 2.7.x, Zabbix 7.2.
   - **Capacity** – Shows capacity.
   - **SMART Health** – Checks overall SMART status.
   - **Predictive Failures** – Counts warnings flagged as `FAILING_NOW`.
-  - **Self-Test Errors** – Records any self-test errors.
-  - **Temperature** – Monitors the disks temperature.
+  - **Self-Test Errors** – Counts any self-test errors.
+  - **Temperature** – Shows the temperature.
 
 - **Alerts**  
   Triggers notify you if:
