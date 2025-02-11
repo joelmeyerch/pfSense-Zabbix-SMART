@@ -1,0 +1,99 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: "7df96b18c230490a9a0a9e2307226338"
+      name: "Templates"
+  templates:
+    - uuid: "9e6c6e62f4e84436ac19a6d370b694f3"
+      template: "pfSense Smart"
+      name: "pfSense Smart"
+      groups:
+        - name: "Templates"
+      discovery_rules:
+        - uuid: "82abc076a95b4ca09e74b9c1b5bedf79"
+          name: "SMART Disk Discovery"
+          key: smart.discovery
+          delay: "12h"
+          item_prototypes:
+            - uuid: "1b6932e2a12546d6a1e5e93d74fd7565"
+              name: "SMART Capacity - {#DISKNAME}"
+              key: "smart.capacity[{#DISKNAME}]"
+              delay: "12h"
+              value_type: TEXT
+              trends: "0"
+              tags:
+                - tag: "Application"
+                  value: "pfSense Smart"
+            - uuid: "810babd8d918423089b10c30f3afcbb3"
+              name: "SMART Device Model - {#DISKNAME}"
+              key: "smart.device_model[{#DISKNAME}]"
+              delay: "12h"
+              value_type: TEXT
+              trends: "0"
+              tags:
+                - tag: "Application"
+                  value: "pfSense Smart"
+            - uuid: "9cdeeb086c21496699c8072f0d72caf4"
+              name: "SMART Errors - {#DISKNAME}"
+              key: "smart.errors[{#DISKNAME}]"
+              delay: "1m"
+              history: "31d"
+              trends: "365d"
+              tags:
+                - tag: "Application"
+                  value: "pfSense Smart"
+              trigger_prototypes:
+                - uuid: "ddd4dba6e5ae4661befc12ebfbcb5d5c"
+                  expression: 'last(/pfSense Smart/smart.errors[{#DISKNAME}])>0'
+                  name: "SMART Errors - {#DISKNAME} [>0 ERRORS]"
+                  priority: HIGH
+                  tags:
+                    - tag: "Application"
+                      value: "pfSense Smart"
+            - uuid: "ceff3cfd43644d9da7137d995c3be3e0"
+              name: "SMART Health - {#DISKNAME}"
+              key: "smart.health[{#DISKNAME}]"
+              value_type: TEXT
+              trends: "0"
+              tags:
+                - tag: "Application"
+                  value: "pfSense Smart"
+              trigger_prototypes:
+                - uuid: "ac780d183d124e38b5c13549d8e87059"
+                  expression: 'last(/pfSense Smart/smart.health[{#DISKNAME}])<>"PASSED"'
+                  name: "SMART Health - {#DISKNAME} [NOT PASSED]"
+                  priority: DISASTER
+                  tags:
+                    - tag: "Application"
+                      value: "pfSense Smart"
+            - uuid: "e7007ec84f7f4b8db2f40fe64c1cd7e8"
+              name: "SMART Predict - {#DISKNAME}"
+              key: "smart.predict[{#DISKNAME}]"
+              delay: "15m"
+              tags:
+                - tag: "Application"
+                  value: "pfSense Smart"
+              trigger_prototypes:
+                - uuid: "3b48fcf17cca4b5783d41dc552a59c5e"
+                  expression: 'last(/pfSense Smart/smart.predict[{#DISKNAME}])>0'
+                  name: "SMART Predict - {#DISKNAME} [FAILURE DETECTED]"
+                  priority: HIGH
+                  tags:
+                    - tag: "Application"
+                      value: "pfSense Smart"
+            - uuid: "6b9afc46b7c94d1bba587946cbee1a39"
+              name: "SMART Temperature - {#DISKNAME}"
+              key: "smart.temp[{#DISKNAME}]"
+              delay: "5m"
+              value_type: FLOAT
+              tags:
+                - tag: "Application"
+                  value: "pfSense Smart"
+              trigger_prototypes:
+                - uuid: "d1e76ad3357942b7b47bc21e45125c00"
+                  expression: 'last(/pfSense Smart/smart.temp[{#DISKNAME}])>50'
+                  name: "SMART Temperature - {#DISKNAME} [ABOVE 50°C]"
+                  priority: HIGH
+                  tags:
+                    - tag: "Application"
+                      value: "pfSense Smart"
