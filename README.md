@@ -57,5 +57,3 @@ Import & Link the Template in Zabbix:
 
 ## Credits
 Inspired by the [pfSense Zabbix Templates](https://github.com/rbicelli/pfsense-zabbix-template).  
-
-Maintained by [joelmeyerch](https://github.com/joelmeyerch).
